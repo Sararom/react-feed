@@ -39,7 +39,7 @@ class Login extends Component{
 					res.json()
 					.then (data => {
 						localStorage.setItem('token', data.token);
-						this.props.history.push("/");
+						this.fetchUser();
 
 					})
 				} else {
@@ -49,6 +49,23 @@ class Login extends Component{
 				}
 			})
 	}
+
+	fetchUser = () => {
+		let config = {
+			method: "GET",
+			headers: {
+				'Content-type': 'Application/json',
+				authorization: `Bearer ${localStorage.getItem('token')}`
+			}
+		}
+	
+		fetch('https://reactcourseapi.herokuapp.com/user/name', config)
+			.then(res => res.json())
+			.then(data => {            
+				localStorage.setItem('user',data.username)
+				this.props.history.push("/");
+			})
+	  }
 
 	changeHandler = (event) => {
 		this.setState({

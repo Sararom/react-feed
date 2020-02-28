@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from "prop-types";
+import DeleteBtn from '../DeleteBtn'
+import {withRouter} from "react-router-dom";
+
 
 const Post = props => {
     return(
@@ -10,6 +13,7 @@ const Post = props => {
 				<h3>
 					{props.title}
 				</h3>
+				{ props.myPost ? <DeleteBtn id={props.id}/>:""}
 				<h5>Usuario: {props.name}</h5>
 			</header>
             
@@ -37,4 +41,4 @@ Post.propTypes = {
 	text: PropTypes.string
 }
 
-export default Post;
+export default withRouter(Post);
